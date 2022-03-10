@@ -1,0 +1,35 @@
+.categories {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.categories__title {
+    text-transform: uppercase;
+}
+
+.categories__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.categories__item {
+    width: 230px;
+    height: auto;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 1rem;
+    margin: 1rem;
+    box-shadow: 1px 2px 3px #c3c3c3;
+}
+
+.category__deleteButton {
+    width: 70px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background: black;
+    color:white;
+    box-shadow: 1px 2px 3px #c3c3c3;
+}
