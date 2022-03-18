@@ -1,4 +1,4 @@
-package fr.esiea;
+package fr.esiea.blogApi;
 
 import static org.junit.Assert.assertTrue;
 

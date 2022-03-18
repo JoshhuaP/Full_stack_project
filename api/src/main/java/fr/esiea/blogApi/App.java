@@ -1,4 +1,4 @@
-package fr.esiea;
+package fr.esiea.blogApi;
 
 /**
  * Hello world!
