@@ -1,9 +1,7 @@
 package fr.esiea.blogApi.controllers;
 
 import fr.esiea.blogApi.models.Article;
-import fr.esiea.blogApi.models.Category;
 import fr.esiea.blogApi.services.ArticleService;
-import fr.esiea.blogApi.services.CategoryService;
 import fr.esiea.blogApi.services.errors.CategoryNotFoundError;
 import fr.esiea.blogApi.services.errors.NotFoundError;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +15,6 @@ public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
-
-    @Autowired
-    private CategoryService categoryService;
 
     @GetMapping("")
     public Iterable<Article> getArticles() {
