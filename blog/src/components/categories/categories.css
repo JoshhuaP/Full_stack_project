@@ -13,6 +13,9 @@
     flex-wrap: wrap;
     justify-content: space-around;
 }
+.categories__name {
+    display: block;
+}
 
 .categories__item {
     width: 230px;
@@ -24,9 +27,20 @@
     box-shadow: 1px 2px 3px #c3c3c3;
 }
 
-.category__deleteButton {
-    width: 70px;
-    height: 30px;
+.categories__buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.category__deleteButton,
+.category__showArticles {
+    cursor: pointer;
+    width: 80px;
+    height: 35px;
     border: none;
     border-radius: 5px;
     background: black;

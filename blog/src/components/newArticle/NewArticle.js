@@ -1,38 +1,47 @@
 export default function NewArticles(props) {
-
-    // the inputs are controled by the state in App.js
-
     return (
         <div className="newArticle__form">
             <h3 className="newArticle__title" >Add an article</h3>
+
             <div className="newArticle__container">
-                <label>Name of the category : {" "} </label>
-                <input
-                    className="newArticle__input" 
-                    type="text"
-                    placeholder="Choose a category name" 
-                    name="name"
-                    value={props.newArticle.name}
-                    onChange={props.handleChange} 
-                />
-            </div>
-            
-            <div className="newArticle__container">
-                <label>Prix du produit : {" "}</label>
+                <label>Nom de la catégorie {" "}</label>
                 <input 
                     className="newArticle__input"
                     type="number" 
-                    name="cost" 
-                    value={props.newArticle.cost}
+                    name="categoryName" 
+                    value={props.newArticle.categoryId}
+                    onChange={props.handleChange} 
+                /> 
+            </div>
+
+            <div className="newArticle__container">
+                <label>Nom de l'auteur de l'article : {" "}</label>
+                <input 
+                    className="newArticle__input"
+                    type="number" 
+                    name="author" 
+                    value={props.newArticle.author}
                     onChange={props.handleChange} 
                 /> 
             </div>
             
+            <div className="newArticle__container">
+                <label>Article posté le : {" "} </label>
+                <input
+                    className="newArticle__input" 
+                    type="text"
+                    name="date"
+                    value={props.newArticle.date}
+                    onChange={props.handleChange} 
+                />
+            </div>
+
+            <label>Contenu :</label>
             <textarea
-                className="newArticle__description"
-                placeholder="Description du produit" 
-                name="description"
-                value={props.newArticle.description}
+                className="newArticle__contenu"
+                placeholder="Contenu du produit" 
+                name="contenu"
+                value={props.newArticle.content}
                 onChange={props.handleChange} 
             />
 
