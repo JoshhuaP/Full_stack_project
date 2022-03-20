@@ -65,7 +65,7 @@ public class Article {
     }
 
     public Article setDate(final String newDate) {
-        this.date = date;
+        this.date = newDate;
 
         // return self for chaining
         return this;
