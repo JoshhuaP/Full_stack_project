@@ -22,15 +22,13 @@ public class Category {
         return this.name;
     }
 
-    public void setName(final String newName) {
+    public Category setName(final String newName) {
         this.name = newName;
+
+        // return self for chaining
+        return this;
     }
 
     public Category() {
-    }
-
-    public Category(final long id, final String name) {
-        this.id = id;
-        this.name = name;
     }
 }
