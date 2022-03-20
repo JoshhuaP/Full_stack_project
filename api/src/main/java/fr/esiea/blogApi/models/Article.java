@@ -1,5 +1,7 @@
 package fr.esiea.blogApi.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,15 +10,15 @@ public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="article_id")
     private Long id;
 
     public Long getId() {
         return this.id;
     }
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="category_id")
+    @JsonManagedReference
     private Category category;
 
     public Category getCategory() {
@@ -30,7 +32,6 @@ public class Article {
         return this;
     }
 
-    @Column(name="article_author")
     private String author;
 
     public String getAuthor() {
@@ -44,7 +45,6 @@ public class Article {
         return this;
     }
 
-    @Column(name="article_content")
     private String content;
 
     public String getContent() {

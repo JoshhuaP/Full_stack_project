@@ -1,5 +1,6 @@
 package fr.esiea.blogApi.controllers;
 
+import fr.esiea.blogApi.models.Article;
 import fr.esiea.blogApi.models.Category;
 import fr.esiea.blogApi.services.CategoryService;
 import fr.esiea.blogApi.services.errors.NotFoundError;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
@@ -56,6 +59,16 @@ public class CategoryController {
         try {
             categoryService.deleteCategory(id);
             return new ResponseEntity<Category>(HttpStatus.OK);
+        } catch (final NotFoundError e) {
+            return new ResponseEntity<String>("Category not found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{categoryId}/articles")
+    public ResponseEntity getCategoryArticles(@PathVariable("categoryId") final long id) {
+        try {
+            final Category category = categoryService.getCategory(id);
+            return new ResponseEntity<List<Article>>(category.getArticles(), HttpStatus.OK);
         } catch (final NotFoundError e) {
             return new ResponseEntity<String>("Category not found", HttpStatus.NOT_FOUND);
         }
