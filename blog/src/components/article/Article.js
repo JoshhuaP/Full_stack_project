@@ -1,6 +1,3 @@
-import Articles from './components/articles/Articles';
-import NewArticle from './components/newArticle/NewArticle';
-
 export default function Article(props) {
 
     return (
