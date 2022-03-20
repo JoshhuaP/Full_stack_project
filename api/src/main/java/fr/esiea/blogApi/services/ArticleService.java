@@ -36,6 +36,7 @@ public class ArticleService {
         public Long categoryId;
         public String author;
         public String content;
+        public String date;
     }
 
     public Article insertArticle(final InsertArticle insertArticle) throws CategoryNotFoundError {
@@ -52,6 +53,7 @@ public class ArticleService {
         }
         article.setAuthor(insertArticle.author);
         article.setContent(insertArticle.content);
+        article.setDate(insertArticle.date);
         return articleRepository.save(article);
     }
 
@@ -59,6 +61,7 @@ public class ArticleService {
         public Long categoryId;
         public String author;
         public String content;
+        public String date;
     }
 
     public Article updateArticle(final long articleId, final UpdateArticle updateArticle) throws NotFoundError, CategoryNotFoundError {
@@ -75,6 +78,7 @@ public class ArticleService {
         }
         article.setAuthor(updateArticle.author);
         article.setContent(updateArticle.content);
+        article.setDate(updateArticle.date);
         return articleRepository.save(article);
     }
 

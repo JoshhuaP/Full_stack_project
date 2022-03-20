@@ -58,6 +58,19 @@ public class Article {
         return this;
     }
 
+    private String date;
+
+    public String getDate() {
+        return this.date;
+    }
+
+    public Article setDate(final String newDate) {
+        this.date = date;
+
+        // return self for chaining
+        return this;
+    }
+
     public Article() {
     }
 }
