@@ -3,6 +3,7 @@ package fr.esiea.blogApi.services;
 import fr.esiea.blogApi.models.Category;
 import fr.esiea.blogApi.repositories.CategoryRepository;
 import fr.esiea.blogApi.services.errors.NotFoundError;
+import fr.esiea.blogApi.services.errors.PresentIdError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -27,9 +28,9 @@ public class CategoryService {
         return category.get();
     }
 
-    public Category insertCategory(final Category category) {
+    public Category insertCategory(final Category category) throws PresentIdError {
         if (category.getId() != null) {
-            throw new IllegalArgumentException("Id is not null");
+            throw new PresentIdError();
         }
         return categoryRepository.save(category);
     }
