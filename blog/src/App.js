@@ -7,7 +7,7 @@ import NewCategory from './components/newCategory/NewCategory';
 import './components/categories/categories.css'
 import './components/newCategory/newCategory.css'
 
-import Articles from './components/Articles/Articles';
+import Articles from './components/articles/Articles';
 import newArticle from './components/newArticle/NewArticle';
 import './components/articles/articles.css'
 import './components/newArticle/newArticle.css'
@@ -24,7 +24,7 @@ function App() {
   const [toDeleteCategory, setToDeleteCategory] = useState({deleting: false});
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/private/category')
+    fetch('http://localhost:3000/api/private/category')
     .then(res => res.json())
     .then(data => setAllCategories(data))
     .catch(e => console.log(e.toString()));
@@ -32,7 +32,7 @@ function App() {
 
   useEffect(() => {
     if (toDeleteCategory.deleting) {
-      fetch(`http://localhost:8080/api/private/category/${toDeleteCategory.categoryId}`, {
+      fetch(`http://localhost:3000/api/private/category/${toDeleteCategory.categoryId}`, {
         method: "DELETE"
       })
       .then(() => {
@@ -102,7 +102,7 @@ function App() {
   const [inputInvalid, setInputInvalid] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/private/article')
+    fetch('http://localhost:3000/api/private/article')
     .then(res => res.json())
     .then(data => setAllArticles(data))
     .catch(e => console.log(e.toString()));
@@ -110,7 +110,7 @@ function App() {
 
   useEffect(() => {
     if (toDeleteArticle.deleting) {
-      fetch(`http://localhost:8080/api/private/article/${toDeleteArticle.articleId}`, {
+      fetch(`http://localhost:3000/api/private/article/${toDeleteArticle.articleId}`, {
         method: "DELETE"
       })
       .then(() => {
@@ -163,6 +163,10 @@ function App() {
         )
       }
     })
+  }
+
+  function initInvalidInput() {
+    setInputInvalid(false)
   }
 
   return (
