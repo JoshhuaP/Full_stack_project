@@ -4,8 +4,8 @@ import fr.esiea.blogApi.models.Article;
 import fr.esiea.blogApi.models.Category;
 import fr.esiea.blogApi.services.ArticleService;
 import fr.esiea.blogApi.services.CategoryService;
+import fr.esiea.blogApi.services.errors.CategoryNotFoundError;
 import fr.esiea.blogApi.services.errors.NotFoundError;
-import fr.esiea.blogApi.services.errors.PresentIdError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,58 +27,41 @@ public class ArticleController {
     }
 
     @GetMapping("/{articleId}")
-    public ResponseEntity getArticle(@PathVariable("articleId") final long id) {
+    public ResponseEntity getArticle(@PathVariable("articleId") final long articleId) {
         try {
-            final Article article = articleService.getArticle(id);
+            final Article article = articleService.getArticle(articleId);
             return new ResponseEntity<Article>(article, HttpStatus.OK);
         } catch (final NotFoundError e) {
             return new ResponseEntity<String>("Article not found", HttpStatus.NOT_FOUND);
         }
     }
 
-    private void resolveCategory(final Article article) throws NotFoundError {
-        Category category = article.getCategory();
-        if (category != null) {
-            final long categoryId = category.getId();
-            category = categoryService.getCategory(categoryId);
-            article.setCategory(category);
-        }
-    }
-
     @PostMapping("")
-    public ResponseEntity postArticle(@RequestBody final Article article) {
+    public ResponseEntity postArticle(@RequestBody final ArticleService.InsertArticle body) {
         try {
-            try {
-                resolveCategory(article);
-            } catch (final NotFoundError e) {
-                return new ResponseEntity<String>("Category not found", HttpStatus.NOT_FOUND);
-            }
-            final Article newArticle = articleService.insertArticle(article);
+            final Article newArticle = articleService.insertArticle(body);
             return new ResponseEntity<Article>(newArticle, HttpStatus.OK);
-        } catch (final PresentIdError e) {
-            return new ResponseEntity<String>("Id must not be set", HttpStatus.BAD_REQUEST);
+        } catch (final CategoryNotFoundError e) {
+            return new ResponseEntity<String>("Category not found", HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PutMapping("")
-    public ResponseEntity putArticle(@RequestBody final Article article) {
+    @PutMapping("/{articleId}")
+    public ResponseEntity putArticle(@PathVariable("articleId") final long articleId, @RequestBody final ArticleService.UpdateArticle body) {
         try {
-            try {
-                resolveCategory(article);
-            } catch (final NotFoundError e) {
-                return new ResponseEntity<String>("Category not found", HttpStatus.NOT_FOUND);
-            }
-            final Article updatedArticle = articleService.updateArticle(article);
+            final Article updatedArticle = articleService.updateArticle(articleId, body);
             return new ResponseEntity<Article>(updatedArticle, HttpStatus.OK);
         } catch (final NotFoundError e) {
             return new ResponseEntity<String>("Article not found", HttpStatus.NOT_FOUND);
+        } catch (final CategoryNotFoundError e) {
+            return new ResponseEntity<String>("Category not found", HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping("/{articleId}")
-    public ResponseEntity deleteArticle(@PathVariable("articleId") final long id) {
+    public ResponseEntity deleteArticle(@PathVariable("articleId") final long articleId) {
         try {
-            articleService.deleteArticle(id);
+            articleService.deleteArticle(articleId);
             return new ResponseEntity<Article>(HttpStatus.OK);
         } catch (final NotFoundError e) {
             return new ResponseEntity<String>("Article not found", HttpStatus.NOT_FOUND);

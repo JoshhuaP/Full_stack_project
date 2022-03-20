@@ -3,7 +3,6 @@ package fr.esiea.blogApi.services;
 import fr.esiea.blogApi.models.Category;
 import fr.esiea.blogApi.repositories.CategoryRepository;
 import fr.esiea.blogApi.services.errors.NotFoundError;
-import fr.esiea.blogApi.services.errors.PresentIdError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -28,27 +27,29 @@ public class CategoryService {
         return category.get();
     }
 
-    public Category insertCategory(final Category category) throws PresentIdError {
-        if (category.getId() != null) {
-            throw new PresentIdError();
-        }
+    public static class InsertCategory {
+        public String name;
+    }
+
+    public Category insertCategory(final InsertCategory insertCategory) {
+        final Category category = new Category();
+        category.setName(insertCategory.name);
         return categoryRepository.save(category);
     }
 
-    public Category updateCategory(final Category category) throws NotFoundError {
-        if (category.getId() == null) {
-            throw new NotFoundError();
-        }
-        try {
-            return categoryRepository.save(category);
-        } catch (final EmptyResultDataAccessException e) {
-            throw new NotFoundError();
-        }
+    public static class UpdateCategory {
+        public String name;
     }
 
-    public void deleteCategory(final long id) throws NotFoundError {
+    public Category updateCategory(final long categoryId, final UpdateCategory updateCategory) throws NotFoundError {
+        final Category category = getCategory(categoryId);
+        category.setName(updateCategory.name);
+        return categoryRepository.save(category);
+    }
+
+    public void deleteCategory(final long categoryId) throws NotFoundError {
         try {
-            categoryRepository.deleteById(id);
+            categoryRepository.deleteById(categoryId);
         } catch (final EmptyResultDataAccessException e) {
             throw new NotFoundError();
         }
