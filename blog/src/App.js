@@ -1,8 +1,16 @@
-import logo from './logo.svg';
+import {useEffect, useState} from 'react';
+import Swal from "sweetalert2";
 import './App.css';
 import Header from './components/Header';
 import Categories from './components/categories/Categories';
 import NewCategory from './components/newCategory/NewCategory';
+import './components/categories/categories.css'
+import './components/newCategory/newCategory.css'
+
+import Articles from './components/Articles/Articles';
+import newArticle from './components/newArticle/NewArticle';
+import './components/articles/articles.css'
+import './components/newArticle/newArticle.css'
 
 function App() {
 
